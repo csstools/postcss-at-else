@@ -1,0 +1,17 @@
+{
+  "name": "gh-pages",
+  "private": true,
+  "scripts": {
+    "build": "browserify index.source.js | uglifyjs -c > index.js",
+    "watch": "watchify index.source.js -o index.js"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "dacoda": "^2.0.0",
+    "postcss": "^5.0.21",
+    "postcss-at-else": "^1.0.0",
+    "postcss-media-minmax": "^2.1.2",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0"
+  }
+}
