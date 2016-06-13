@@ -1,0 +1,39 @@
+@media screen and (min-width: 30em) {
+	body {
+		background-color: white;
+	}
+} @media not screen, (max-width: 29.999em) {
+	body {
+		background-color: black;
+	}
+}
+
+@media (min-width: 30em) and (max-width: 50em) {
+	body {
+		background-color: white;
+	}
+} @media (max-width: 29.999em), (min-width: 50.001em) {
+	body {
+		background-color: black;
+	}
+}
+
+@media (orientation: portrait) {
+	body {
+		background-color: white;
+	}
+} @media (orientation: landscape) {
+	body {
+		background-color: black;
+	}
+}
+
+@media (min-aspect-ratio: 4/3) {
+	body {
+		background-color: white;
+	}
+} @media (max-aspect-ratio: 4/2.999) {
+	body {
+		background-color: black;
+	}
+}

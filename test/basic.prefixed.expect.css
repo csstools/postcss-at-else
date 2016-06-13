@@ -1,0 +1,39 @@
+@media screen and (min-width: 30em) {
+	body {
+		background-color: white;
+	}
+} @else {
+	body {
+		background-color: black;
+	}
+}
+
+@media (min-width: 30em) and (max-width: 50em) {
+	body {
+		background-color: white;
+	}
+} @else {
+	body {
+		background-color: black;
+	}
+}
+
+@media (orientation: portrait) {
+	body {
+		background-color: white;
+	}
+} @else {
+	body {
+		background-color: black;
+	}
+}
+
+@media (min-aspect-ratio: 4/3) {
+	body {
+		background-color: white;
+	}
+} @else {
+	body {
+		background-color: black;
+	}
+}

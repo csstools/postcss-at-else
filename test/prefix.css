@@ -1,0 +1,29 @@
+@media screen and (min-width: 30em) {
+	body {
+		background-color: white;
+	}
+} @-x-else {
+	body {
+		background-color: black;
+	}
+}
+
+@media (30em <= width <= 50em) {
+	body {
+		background-color: white;
+	}
+} @-x-else {
+	body {
+		background-color: black;
+	}
+}
+
+@media (orientation: portrait) {
+	body {
+		background-color: white;
+	}
+} @-x-else {
+	body {
+		background-color: black;
+	}
+}

@@ -1,0 +1,47 @@
+{
+  "name": "postcss-at-else",
+  "version": "1.0.0",
+  "description": "Use @else inverted media queries",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "else",
+    "inverted",
+    "medias",
+    "query",
+    "queries",
+    "mqs"
+  ],
+  "author": "Jonathan Neal <jonathantneal@hotmail.com> (http://jonathantneal.com/)",
+  "license": "CC0-1.0",
+  "repository": "jonathantneal/postcss-at-else.git",
+  "homepage": "https://github.com/jonathantneal/postcss-at-else#readme",
+  "bugs": "https://github.com/jonathantneal/postcss-at-else/issues",
+  "dependencies": {
+    "postcss": "^5.0.21"
+  },
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "eslint": "^2.12.0",
+    "eslint-config-10up": "github:jonathantneal/eslint-config-10up",
+    "fs-promise": "^0.5.0",
+    "jscs": "^3.0.4",
+    "jscs-config-10up": "github:jonathantneal/jscs-config-10up",
+    "postcss-media-minmax": "^2.1.2"
+  },
+  "scripts": {
+    "lint": "eslint . && jscs .",
+    "tape": "ava",
+    "test": "npm run lint && npm run tape"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "jscsConfig": {
+    "preset": "10up"
+  },
+  "eslintConfig": {
+    "extends": "10up"
+  }
+}
