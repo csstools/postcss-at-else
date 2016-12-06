@@ -8,7 +8,17 @@
 	}
 }
 
-@media (min-width: 30em) and (max-width: 50em) {
+@media screen and (min-width: 30em), print and (min-width: 3in) and (max-width: 11in) {
+	body {
+		background-color: white;
+	}
+} @else {
+	body {
+		background-color: black;
+	}
+}
+
+@media (30em <= width <= 50em) {
 	body {
 		background-color: white;
 	}

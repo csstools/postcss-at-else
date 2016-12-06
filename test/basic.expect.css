@@ -8,11 +8,21 @@
 	}
 }
 
-@media (min-width: 30em) and (max-width: 50em) {
+@media screen and (min-width: 30em), print and (min-width: 3in) and (max-width: 11in) {
 	body {
 		background-color: white;
 	}
-} @media (max-width: 29.999em), (min-width: 50.001em) {
+} @media not screen and not print, (max-width: 29.999em) and (max-width: 2.999in), (max-width: 29.999em) and (max-width: 11.001in) {
+	body {
+		background-color: black;
+	}
+}
+
+@media (30em <= width <= 50em) {
+	body {
+		background-color: white;
+	}
+} @media not (30em <= width <= 50em) {
 	body {
 		background-color: black;
 	}

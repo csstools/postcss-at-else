@@ -27,3 +27,13 @@
 		background-color: black;
 	}
 }
+
+@media (min-aspect-ratio: 4/3) {
+	body {
+		background-color: white;
+	}
+} @-x-else {
+	body {
+		background-color: black;
+	}
+}

@@ -1,3 +1,9 @@
-## 1.0.0 (2016-09-12)
+# Changes to @else
 
-Added: Initial version
+### 2.0.0 (December 6, 2016)
+
+- Updated: boilerplate conventions (Node v6.9.1 LTS)
+
+### 1.0.0 (September 12, 2016)
+
+- Added: Initial version

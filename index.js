@@ -1,31 +1,45 @@
-var postcss = require('postcss');
+// tooling
+const postcss = require('postcss');
 
-var allRE = /^(all|print|screen|speech)$/;
-var notRE = /^not\s+(all|print|screen|speech)$/;
+// and/or matchers
+const andMatch = /\s+and\s+/;
+const orMatch  = /\s*,\s*/;
 
-var maxRE = /^max-/;
-var minRE = /^min-/;
+// not matcher
+const notMatch = /^not\s+(all|print|screen|speech)$/;
 
-var andRE = /\s+and\s+/;
-var orRE  = /\s*,\s*/;
+// min/max matchers
+const maxMatch = /^max-/;
+const minMatch = /^min-/;
 
-var featureRE = /^\s*\(\s*([a-z-]+)\s*:\s*([^\)]+)\s*\)\s*$/;
-var lengthRE  = /([-+]?\d*\.?\d+)(%|[a-z]+)?/;
-var aspectRE  = /([-+]?\d*\.?\d+)\/([-+]?\d*\.?\d+)/;
+// feature matchers
+const featureMatch = /^\s*\(\s*([a-z-]+)\s*:\s*([^\)]+)\s*\)\s*$/;
+const lengthMatch = /([-+]?\d*\.?\d+)(%|[a-z]+)?/;
+const aspectMatch = /([-+]?\d*\.?\d+)\/([-+]?\d*\.?\d+)/;
 
-var up   = 0.001;
-var down = -0.001;
+// step values
+const up   = 0.001;
+const down = -0.001;
 
-module.exports = postcss.plugin('postcss-at-else', function (opts) {
-	var prefix = opts && opts.prefix ? '-' + opts.prefix + '-' : '';
+// plugin
+module.exports = postcss.plugin('postcss-at-else', ({
+	prefix = ''
+}) => {
+	// dashed prefix
+	const dashedPrefix = prefix ? `-${ prefix }-` : '';
 
-	return function (css) {
-		css.walkAtRules(prefix + 'else', function (elseRule) {
-			var ifRule = elseRule.prev();
+	return (css) => {
+		// walk each matching at-rule
+		css.walkAtRules(`${ dashedPrefix }else`, (elseRule) => {
+			// previous node
+			const ifRule = elseRule.prev();
 
+			// if previous node is an at-rule
 			if (ifRule.type === 'atrule') {
+				// rename else at-rule to media at-rule
 				elseRule.name = 'media';
 
+				// apply inverted media query
 				elseRule.params = ' ' + invert(ifRule.params);
 			}
 		});
@@ -33,72 +47,79 @@ module.exports = postcss.plugin('postcss-at-else', function (opts) {
 });
 
 function invert(params) {
-	var features = [];
+	const features = [];
 
-	params.split(orRE).map(function (query, queryIndex) {
-		query.split(andRE).map(function (feature, index) {
+	// for each query
+	params.split(orMatch).forEach((query, queryIndex) => {
+		// for each combinator
+		query.split(andMatch).forEach((feature, index) => {
+			// if this feature index yet exists
 			if (!features[index]) {
+				// feature index
 				features[index] = features[index - 1] ? features[index - 1].slice(0, queryIndex) : [];
 			}
 
+			// push the inverted feature to the feature index
 			features[index].push(invertFeature(feature));
 		});
 	});
 
-	return features.map(function (feature) {
-		return feature.join(' and ');
-	}).join(', ');
+	// return all features invertly joined
+	return features.map((feature) => feature.join(' and ')).join(', ');
 }
 
 function invertFeature(feature) {
-	var matches = feature.match(featureRE);
+	// matched feature query
+	const matches = feature.match(featureMatch);
 
+	// if the feature query was matched
 	if (matches) {
-		var name  = matches[1];
-		var value = matches[2];
+		// name and value of query
+		const name  = matches[1];
+		const value = matches[2];
 
+		// update orientation query
 		if (name === 'orientation') {
-			if (value === 'portrait') {
-				return '(' + name + ': landscape)';
-			} else {
-				return '(' + name + ': portrait)';
-			}
+			return `(${ name }: ${ value === 'portrait' ? 'landscape' : 'portrait' })`;
 		}
 
-		if (minRE.test(name)) {
-			return '(' + name.replace(minRE, 'max-') + ': ' + stepNumber(value, down) + ')';
+		// update min-length query
+		if (minMatch.test(name)) {
+			return `(${ name.replace(minMatch, 'max-') }: ${ stepNumber(value, down) })`;
 		}
 
-		if (maxRE.test(name)) {
-			return '(' + name.replace(maxRE, 'min-') + ': ' + stepNumber(value, up) + ')';
+		// update max-length query
+		if (maxMatch.test(name)) {
+			return `(${ name.replace(minMatch, 'min-') }: ${ stepNumber(value, up) })`;
 		}
+
+		return feature;
+	} else if (notMatch.test(feature)) {
+		// replaced not query
+		return feature.replace(notMatch, '');
 	} else {
-		if (allRE.test(feature)) {
-			return 'not ' + feature;
-		}
-
-		if (notRE.test(feature)) {
-			return feature.replace(notRE, '');
-		}
+		// notted any other query
+		return `not ${ feature }`;
 	}
-
-	return feature;
 }
 
 function stepNumber(number, step) {
-	var aspects = number.match(aspectRE);
-	var lengths = number.match(lengthRE);
+	// aspect ratio and length
+	const aspects = number.match(aspectMatch);
+	const lengths = number.match(lengthMatch);
 
+	// step aspect ratios
 	if (aspects) {
-		var first  = aspects[1];
-		var second = String(parseFloat(aspects[2]) + step);
+		const first  = aspects[1];
+		const second = String(parseFloat(aspects[2]) + step);
 
-		return first + '/' + second;
+		return `${ first }/${ second }`;
 	}
 
+	// step lengths
 	if (lengths) {
-		var length = String(parseFloat(lengths[1]) + step);
-		var suffix = lengths[2] || '';
+		const length = String(parseFloat(lengths[1]) + step);
+		const suffix = lengths[2] || '';
 
 		return length + suffix;
 	}

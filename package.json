@@ -1,47 +1,53 @@
 {
   "name": "postcss-at-else",
-  "version": "1.0.0",
-  "description": "Use @else inverted media queries",
+  "version": "2.0.0",
+  "description": "Use @else inverted media queries in CSS",
+  "author": "Jonathan Neal <jonathantneal@hotmail.com>",
+  "license": "CC0-1.0",
+  "repository": "jonathantneal/postcss-at-else",
+  "homepage": "https://github.com/jonathantneal/postcss-at-else#readme",
+  "bugs": "https://github.com/jonathantneal/postcss-at-else/issues",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "lint": "echint && eslint index.js && jscs index.js",
+    "prepublish": "npm test",
+    "tape": "postcss-tape",
+    "test": "npm run lint && postcss-tape"
+  },
+  "engines": {
+    "node": ">=6.9.1"
+  },
+  "dependencies": {
+    "postcss": "^5.2.6"
+  },
+  "devDependencies": {
+    "echint": "^2.1.0",
+    "echint-config-dev": "1.0.0",
+    "eslint": "^3.11.1",
+    "eslint-config-dev": "1.0.0",
+    "jscs": "^3.0.7",
+    "jscs-config-dev": "1.0.1",
+    "postcss-tape": "1.0.1"
+  },
+  "echint": {
+    "extends": "dev"
+  },
+  "eslintConfig": {
+    "extends": "dev",
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  },
+  "jscsConfig": {
+    "preset": "dev"
+  },
   "keywords": [
     "postcss",
     "css",
     "postcss-plugin",
-    "else",
-    "inverted",
-    "medias",
-    "query",
-    "queries",
-    "mqs"
-  ],
-  "author": "Jonathan Neal <jonathantneal@hotmail.com> (http://jonathantneal.com/)",
-  "license": "CC0-1.0",
-  "repository": "jonathantneal/postcss-at-else.git",
-  "homepage": "https://github.com/jonathantneal/postcss-at-else#readme",
-  "bugs": "https://github.com/jonathantneal/postcss-at-else/issues",
-  "dependencies": {
-    "postcss": "^5.0.21"
-  },
-  "devDependencies": {
-    "ava": "^0.15.2",
-    "eslint": "^2.12.0",
-    "eslint-config-10up": "github:jonathantneal/eslint-config-10up",
-    "fs-promise": "^0.5.0",
-    "jscs": "^3.0.4",
-    "jscs-config-10up": "github:jonathantneal/jscs-config-10up",
-    "postcss-media-minmax": "^2.1.2"
-  },
-  "scripts": {
-    "lint": "eslint . && jscs .",
-    "tape": "ava",
-    "test": "npm run lint && npm run tape"
-  },
-  "engines": {
-    "node": ">=0.12.0"
-  },
-  "jscsConfig": {
-    "preset": "10up"
-  },
-  "eslintConfig": {
-    "extends": "10up"
-  }
+    "asdf"
+  ]
 }

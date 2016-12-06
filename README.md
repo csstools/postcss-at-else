@@ -1,10 +1,12 @@
-# At-Else
+# @else <a href="https://github.com/postcss/postcss"><img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="90" height="90" align="right"></a>
 
-<a href="https://github.com/postcss/postcss"><img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="80" height="80" align="right"></a>
+[![NPM Version][npm-img]][npm-url]
+[![Build Status][cli-img]][cli-url]
+[![Licensing][lic-image]][lic-url]
+[![Changelog][log-image]][log-url]
+[![Gitter Chat][git-image]][git-url]
 
-[![NPM Version][npm-img]][npm] [![Build Status][ci-img]][ci]
-
-[At-Else] is a [PostCSS] plugin that allows you to use `@else` inverted media queries.
+[@else] lets you use `@else` inverted media queries in CSS.
 
 ```css
 /* before */
@@ -35,9 +37,7 @@
 
 ## Usage
 
-Follow these steps to use [At-Else].
-
-Add [At-Else] to your build tool:
+Add [@else] to your build tool:
 
 ```bash
 npm install postcss-at-else --save-dev
@@ -46,7 +46,7 @@ npm install postcss-at-else --save-dev
 #### Node
 
 ```js
-require('postcss-at-else')({ /* options */ }).process(YOUR_CSS);
+require('postcss-at-else').process(YOUR_CSS, { /* options */ });
 ```
 
 #### PostCSS
@@ -57,12 +57,12 @@ Add [PostCSS] to your build tool:
 npm install postcss --save-dev
 ```
 
-Load [At-Else] as a PostCSS plugin:
+Load [@else] as a PostCSS plugin:
 
 ```js
 postcss([
-    require('postcss-at-else')({ /* options */ })
-]);
+	require('postcss-at-else')({ /* options */ })
+]).process(YOUR_CSS, /* options */);
 ```
 
 #### Gulp
@@ -73,19 +73,19 @@ Add [Gulp PostCSS] to your build tool:
 npm install gulp-postcss --save-dev
 ```
 
-Enable [At-Else] within your Gulpfile:
+Enable [@else] within your Gulpfile:
 
 ```js
 var postcss = require('gulp-postcss');
 
 gulp.task('css', function () {
-    return gulp.src('./css/src/*.css').pipe(
-        postcss([
-            require('postcss-at-else')({ /* options */ })
-        ])
-    ).pipe(
-        gulp.dest('./css')
-    );
+	return gulp.src('./src/*.css').pipe(
+		postcss([
+			require('postcss-at-else')({ /* options */ })
+		])
+	).pipe(
+		gulp.dest('.')
+	);
 });
 ```
 
@@ -97,41 +97,37 @@ Add [Grunt PostCSS] to your build tool:
 npm install grunt-postcss --save-dev
 ```
 
-Enable [At-Else] within your Gruntfile:
+Enable [@else] within your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-postcss');
 
 grunt.initConfig({
-    postcss: {
-        options: {
-            processors: [
-                require('postcss-at-else')({ /* options */ })
-            ]
-        },
-        dist: {
-            src: 'css/*.css'
-        }
-    }
+	postcss: {
+		options: {
+			use: [
+				require('postcss-at-else')({ /* options */ })
+			]
+		},
+		dist: {
+			src: '*.css'
+		}
+	}
 });
 ```
 
-## Options
-
-#### `prefix`
-
-Type: `String`  
-Default: `null`
-
-Specifies a prefix to be surrounded by dashes before the at-rule (e.g. `x` for `@-x-else`).
-
-[ci]:      https://travis-ci.org/jonathantneal/postcss-at-else
-[ci-img]:  https://img.shields.io/travis/jonathantneal/postcss-at-else.svg
-[npm]:     https://www.npmjs.com/package/postcss-at-else
+[npm-url]: https://www.npmjs.com/package/postcss-at-else
 [npm-img]: https://img.shields.io/npm/v/postcss-at-else.svg
+[cli-url]: https://travis-ci.org/jonathantneal/postcss-at-else
+[cli-img]: https://img.shields.io/travis/jonathantneal/postcss-at-else.svg
+[lic-url]: LICENSE.md
+[lic-image]: https://img.shields.io/npm/l/postcss-at-else.svg
+[log-url]: CHANGELOG.md
+[log-image]: https://img.shields.io/badge/changelog-md-blue.svg
+[git-url]: https://gitter.im/postcss/postcss
+[git-image]: https://img.shields.io/badge/chat-gitter-blue.svg
 
+[@else]: https://github.com/jonathantneal/postcss-at-else
+[PostCSS]: https://github.com/postcss/postcss
 [Gulp PostCSS]: https://github.com/postcss/gulp-postcss
 [Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
-[PostCSS]: https://github.com/postcss/postcss
-
-[At-Else]: https://github.com/jonathantneal/postcss-at-else
