@@ -1,6 +1,3 @@
-// tooling
-const postcss = require('postcss');
-
 // and/or matchers
 const andMatch = /\s+and\s+/;
 const orMatch  = /\s*,\s*/;
@@ -21,16 +18,16 @@ const aspectMatch = /([-+]?\d*\.?\d+)\/([-+]?\d*\.?\d+)/;
 const up   = 0.001;
 const down = -0.001;
 
-// plugin
-module.exports = postcss.plugin('postcss-at-else', ({
-	prefix = ''
-} = {}) => {
-	// dashed prefix
-	const dashedPrefix = prefix ? `-${ prefix }-` : '';
+module.exports = (opts = {}) => {
+	const prefix = opts.prefix;
+	const dashedPrefix = prefix ? `-${prefix}-` : '';
 
-	return (css) => {
-		// walk each matching at-rule
-		css.walkAtRules(`${ dashedPrefix }else`, (elseRule) => {
+	return {
+		postcssPlugin: 'postcss-at-else',
+		AtRule: (elseRule) => {
+			if (elseRule.name !== `${dashedPrefix}else`) {
+				return;
+			}
 			// previous node
 			const ifRule = elseRule.prev();
 
@@ -40,18 +37,13 @@ module.exports = postcss.plugin('postcss-at-else', ({
 				elseRule.name = 'media';
 
 				// apply inverted media query
-				elseRule.params = ` ${ invert(ifRule.params) }`;
+				elseRule.params = ` ${invert(ifRule.params)}`;
 			}
-		});
+		}
 	};
-});
-
-// override plugin#process
-module.exports.process = function (cssString, pluginOptions, processOptions) {
-	return postcss([
-		0 in arguments ? module.exports(pluginOptions) : module.exports()
-	]).process(cssString, processOptions);
 };
+
+module.exports.postcss = true;
 
 // invert media query
 const invert = (params) => {

@@ -40,13 +40,7 @@
 Add [@else] to your build tool:
 
 ```bash
-npm install postcss-at-else --save-dev
-```
-
-#### Node
-
-```js
-require('postcss-at-else').process(YOUR_CSS, { /* options */ });
+npm install postcss postcss-at-else --save-dev
 ```
 
 #### PostCSS
