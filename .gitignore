@@ -1,3 +1,10 @@
 node_modules
-npm-debug.log
-test/*.result.css
+package-lock.json
+yarn.lock
+.*
+!.editorconfig
+!.gitignore
+!.tape.js
+!.github
+*.log*
+*.result.css
