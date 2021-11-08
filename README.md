@@ -112,8 +112,8 @@ grunt.initConfig({
 
 [npm-url]: https://www.npmjs.com/package/postcss-at-else
 [npm-img]: https://img.shields.io/npm/v/postcss-at-else.svg
-[cli-url]: https://github.com/csstools/postcss-at-else/actions/workflows/ci.yaml/badge.svg
-[cli-img]: https://github.com/csstools/postcss-at-else/actions/workflows/ci.yaml
+[cli-url]: https://github.com/csstools/postcss-at-else/actions/workflows/ci.yaml
+[cli-img]: https://github.com/csstools/postcss-at-else/actions/workflows/ci.yaml/badge.svg
 [lic-url]: LICENSE.md
 [lic-image]: https://img.shields.io/npm/l/postcss-at-else.svg
 [log-url]: CHANGELOG.md
